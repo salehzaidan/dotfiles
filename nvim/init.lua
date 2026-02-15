@@ -31,6 +31,9 @@ vim.opt.listchars = {
 }
 vim.opt.list = true
 
+-- Disable built-in mode (use lualine instead).
+vim.opt.showmode = false
+
 -- ----------------------------------------------------------------
 -- Keymap settings
 -- ----------------------------------------------------------------
@@ -47,3 +50,53 @@ vim.keymap.set("n", "<leader>e", "<Cmd>Explore<CR>")
 
 -- Write current buffer.
 vim.keymap.set("n", "<leader>w", "<Cmd>write<CR>")
+
+-- ----------------------------------------------------------------
+-- Plugin list
+-- ----------------------------------------------------------------
+local plugins = {
+  -- Git commands.
+  { "tpope/vim-fugitive" },
+
+  -- Colorscheme with tree-sitter support.
+  { "EdenEast/nightfox.nvim" },
+
+  -- Status line at the bottom.
+  {
+    "nvim-lualine/lualine.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+  },
+}
+
+-- ----------------------------------------------------------------
+-- Plugin manager installation
+-- ----------------------------------------------------------------
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable",
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
+require("lazy").setup(plugins)
+
+-- ----------------------------------------------------------------
+-- Plugin config
+-- ----------------------------------------------------------------
+vim.cmd.colorscheme("carbonfox")
+
+require("lualine").setup({
+  sections = {
+    lualine_a = { "mode" },
+    lualine_b = { "diff", "diagnostics" },
+    lualine_c = { { "filename", path = 1 } },
+    lualine_x = {},
+    lualine_y = { "progress" },
+    lualine_z = { "location" },
+  },
+})
