@@ -14,6 +14,11 @@ vim.opt.cursorline = true
 -- Disable text wrapping.
 vim.opt.wrap = false
 
+-- Always show the sign column (left of the line numbers),
+-- used for LSP diagnostics, Git signs, breakpoints, etc.,
+-- to prevent the text from shifting when signs appear or disappear.
+vim.opt.signcolumn = "yes"
+
 -- Use spaces.
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
