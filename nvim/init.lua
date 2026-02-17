@@ -63,6 +63,9 @@ local plugins = {
   -- Git commands.
   { "tpope/vim-fugitive" },
 
+  -- Git signs.
+  { "lewis6991/gitsigns.nvim" },
+
   -- Colorscheme with tree-sitter support.
   { "EdenEast/nightfox.nvim" },
 
@@ -103,6 +106,34 @@ require("lazy").setup(plugins)
 -- Plugin config
 -- ----------------------------------------------------------------
 vim.cmd.colorscheme("carbonfox")
+
+require("gitsigns").setup({
+  on_attach = function (bufnr)
+    local gitsigns = require("gitsigns")
+
+    local function map(mode, lhs, rhs, opts)
+      opts = opts or {}
+      opts.buffer = bufnr
+      vim.keymap.set(mode, lhs, rhs, opts)
+    end
+
+    map("n", "]g", function ()
+      if vim.wo.diff then
+        vim.cmd.normal({ "]g", bang = true })
+      else
+        gitsigns.nav_hunk("next")
+      end
+    end)
+
+    map("n", "[g", function ()
+      if vim.wo.diff then
+        vim.cmd.normal({ "[g", bang = true })
+      else
+        gitsigns.nav_hunk("prev")
+      end
+    end)
+  end,
+})
 
 require("lualine").setup({
   sections = {
