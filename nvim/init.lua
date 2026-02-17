@@ -83,6 +83,16 @@ local plugins = {
       "neovim/nvim-lspconfig"
     },
   },
+
+  -- Telescope
+  {
+    "nvim-telescope/telescope.nvim",
+    version = "*",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+    }
+  }
 }
 
 -- ----------------------------------------------------------------
@@ -145,6 +155,15 @@ require("lualine").setup({
     lualine_z = { "location" },
   },
 })
+
+require("telescope").setup({})
+
+local tele_builtin = require("telescope.builtin")
+vim.keymap.set("n", "<leader>ff", tele_builtin.git_files, {})
+vim.keymap.set("n", "<leader>fa", tele_builtin.find_files, {})
+vim.keymap.set("n", "<leader>fg", tele_builtin.live_grep, {})
+vim.keymap.set("n", "<leader>fb", tele_builtin.buffers, {})
+vim.keymap.set("n", "<leader>fh", tele_builtin.help_tags, {})
 
 -- ----------------------------------------------------------------
 -- LSP config
