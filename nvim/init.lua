@@ -84,6 +84,9 @@ local plugins = {
     },
   },
 
+  -- Formatter
+  { "stevearc/conform.nvim" },
+
   -- Telescope
   {
     "nvim-telescope/telescope.nvim",
@@ -118,7 +121,7 @@ require("lazy").setup(plugins)
 vim.cmd.colorscheme("carbonfox")
 
 require("gitsigns").setup({
-  on_attach = function (bufnr)
+  on_attach = function(bufnr)
     local gitsigns = require("gitsigns")
 
     local function map(mode, lhs, rhs, opts)
@@ -127,7 +130,7 @@ require("gitsigns").setup({
       vim.keymap.set(mode, lhs, rhs, opts)
     end
 
-    map("n", "]g", function ()
+    map("n", "]g", function()
       if vim.wo.diff then
         vim.cmd.normal({ "]g", bang = true })
       else
@@ -135,7 +138,7 @@ require("gitsigns").setup({
       end
     end)
 
-    map("n", "[g", function ()
+    map("n", "[g", function()
       if vim.wo.diff then
         vim.cmd.normal({ "[g", bang = true })
       else
@@ -153,6 +156,13 @@ require("lualine").setup({
     lualine_x = {},
     lualine_y = { "progress" },
     lualine_z = { "location" },
+  },
+})
+
+require("conform").setup({
+  format_on_save = {
+    lsp_format = "fallback",
+    timeout_ms = 500,
   },
 })
 
@@ -180,8 +190,8 @@ vim.lsp.config("lua_ls", {
     if client.workspace_folders then
       local path = client.workspace_folders[1].name
       if
-        path ~= vim.fn.stdpath("config")
-        and (vim.uv.fs_stat(path .. "/.luarc.json") or vim.uv.fs_stat(path .. "/.luarc.jsonc"))
+          path ~= vim.fn.stdpath("config")
+          and (vim.uv.fs_stat(path .. "/.luarc.json") or vim.uv.fs_stat(path .. "/.luarc.jsonc"))
       then
         return
       end
