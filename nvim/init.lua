@@ -45,16 +45,16 @@ vim.opt.showmode = false
 vim.g.mapleader = " "
 
 -- Faster commands.
-vim.keymap.set("n", ";", ":")
+vim.keymap.set("n", ";", ":", { desc = "Run command" })
 
 -- Open this file.
-vim.keymap.set("n", "<leader>ec", "<Cmd>edit $MYVIMRC<CR>")
+vim.keymap.set("n", "<leader>ec", "<Cmd>edit $MYVIMRC<CR>", { desc = "Edit init.lua" })
 
 -- Open netrw.
-vim.keymap.set("n", "<leader>e", "<Cmd>Explore<CR>")
+vim.keymap.set("n", "<leader>e", "<Cmd>Explore<CR>", { desc = "Explore directory" })
 
 -- Write current buffer.
-vim.keymap.set("n", "<leader>w", "<Cmd>write<CR>")
+vim.keymap.set("n", "<leader>w", "<Cmd>write<CR>", { desc = "Save current buffer" })
 
 -- ----------------------------------------------------------------
 -- Plugin list
@@ -95,7 +95,10 @@ local plugins = {
       "nvim-lua/plenary.nvim",
       { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
     }
-  }
+  },
+
+  -- Show keymaps in a popup.
+  { "folke/which-key.nvim" },
 }
 
 -- ----------------------------------------------------------------
@@ -136,7 +139,7 @@ require("gitsigns").setup({
       else
         gitsigns.nav_hunk("next")
       end
-    end)
+    end, { desc = "Jump to the next Git hunk" })
 
     map("n", "[g", function()
       if vim.wo.diff then
@@ -144,7 +147,7 @@ require("gitsigns").setup({
       else
         gitsigns.nav_hunk("prev")
       end
-    end)
+    end, { desc = "Jump to the previous Git hunk" })
   end,
 })
 
@@ -169,11 +172,11 @@ require("conform").setup({
 require("telescope").setup({})
 
 local tele_builtin = require("telescope.builtin")
-vim.keymap.set("n", "<leader>ff", tele_builtin.git_files, {})
-vim.keymap.set("n", "<leader>fa", tele_builtin.find_files, {})
-vim.keymap.set("n", "<leader>fg", tele_builtin.live_grep, {})
-vim.keymap.set("n", "<leader>fb", tele_builtin.buffers, {})
-vim.keymap.set("n", "<leader>fh", tele_builtin.help_tags, {})
+vim.keymap.set("n", "<leader>ff", tele_builtin.git_files, { desc = "Seach Git files" })
+vim.keymap.set("n", "<leader>fa", tele_builtin.find_files, { desc = "Search any files (respecting .gitignore)" })
+vim.keymap.set("n", "<leader>fg", tele_builtin.live_grep, { desc = "Search for a string (grep)" })
+vim.keymap.set("n", "<leader>fb", tele_builtin.buffers, { desc = "Search open buffers" })
+vim.keymap.set("n", "<leader>fh", tele_builtin.help_tags, { desc = "Search available help tags" })
 
 -- ----------------------------------------------------------------
 -- LSP config
