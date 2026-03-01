@@ -57,7 +57,7 @@ vim.keymap.set("n", "<leader>e", "<Cmd>Explore<CR>", { desc = "Explore directory
 vim.keymap.set("n", "<leader>w", "<Cmd>write<CR>", { desc = "Save current buffer" })
 
 -- Open terminal.
-vim.keymap.set("n", "<leader>t", "<Cmd>split | terminal<CR>", { desc = "Open terminal" })
+vim.keymap.set("n", "<leader>t", "<Cmd>vsplit | terminal<CR>", { desc = "Open terminal" })
 
 -- Return to normal mode when in terminal mode.
 vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], { desc = "Return to normal mode" })
