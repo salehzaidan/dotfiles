@@ -59,6 +59,9 @@ vim.keymap.set("n", "<leader>w", "<Cmd>write<CR>", { desc = "Save current buffer
 -- Open terminal.
 vim.keymap.set("n", "<leader>t", "<Cmd>vsplit | terminal<CR>", { desc = "Open terminal" })
 
+-- Turn off highlighted search matches.
+vim.keymap.set("n", "<Esc>", "<Cmd>nohlsearch<CR>", { desc = "Turn off highlighted search matches" })
+
 -- Return to normal mode when in terminal mode.
 vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], { desc = "Return to normal mode" })
 
